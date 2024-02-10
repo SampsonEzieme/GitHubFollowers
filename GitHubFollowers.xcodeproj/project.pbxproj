@@ -12,6 +12,7 @@
 		B571AC8E2B731DEA00DFCAB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B571AC8D2B731DEA00DFCAB3 /* Assets.xcassets */; };
 		B571AC912B731DEA00DFCAB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B571AC8F2B731DEA00DFCAB3 /* LaunchScreen.storyboard */; };
 		B5AB82842B76DAFF00CC7E01 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB82832B76DAFF00CC7E01 /* GFButton.swift */; };
+		B5AB82862B77022C00CC7E01 /* GFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB82852B77022C00CC7E01 /* GFTextField.swift */; };
 		B5D079D32B7466F7008F5B69 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D079D22B7466F7008F5B69 /* SearchViewController.swift */; };
 		B5D079D52B74676C008F5B69 /* FavoritesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D079D42B74676C008F5B69 /* FavoritesListViewController.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 		B571AC902B731DEA00DFCAB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B571AC922B731DEA00DFCAB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5AB82832B76DAFF00CC7E01 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
+		B5AB82852B77022C00CC7E01 /* GFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTextField.swift; sourceTree = "<group>"; };
 		B5D079D22B7466F7008F5B69 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B5D079D42B74676C008F5B69 /* FavoritesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,6 +68,7 @@
 				B5D079D22B7466F7008F5B69 /* SearchViewController.swift */,
 				B5D079D42B74676C008F5B69 /* FavoritesListViewController.swift */,
 				B5AB82832B76DAFF00CC7E01 /* GFButton.swift */,
+				B5AB82852B77022C00CC7E01 /* GFTextField.swift */,
 			);
 			path = GitHubFollowers;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5AB82862B77022C00CC7E01 /* GFTextField.swift in Sources */,
 				B5D079D32B7466F7008F5B69 /* SearchViewController.swift in Sources */,
 				B5AB82842B76DAFF00CC7E01 /* GFButton.swift in Sources */,
 				B571AC852B731DE600DFCAB3 /* AppDelegate.swift in Sources */,
