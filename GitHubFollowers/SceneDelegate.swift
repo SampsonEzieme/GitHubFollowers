@@ -54,10 +54,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarAppearance.configureWithOpaqueBackground()
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         
-        let tabbar = UITabBarController()
+        let tabBar = UITabBarController()
         UITabBar.appearance().tintColor = .systemGreen
-        tabbar.viewControllers = [createSearchNC(), createFavoritesNC()]
-        return tabbar
+        tabBar.viewControllers = [createSearchNC(), createFavoritesNC()]
+        return tabBar
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
