@@ -12,6 +12,8 @@ class SearchViewController: UIViewController {
     let logoImageView = UIImageView()
     let usernameTextField = GFTextField()
     let callToActionButton = GFButton(backgroundColor: .systemGreen, title: "Get Followers")
+    
+    var isUsernameEntered: Bool { return !(usernameTextField.text!.isEmpty) }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,7 @@ class SearchViewController: UIViewController {
         configureLogoImageView()
         configureTextField()
         configureCallToActionButton()
+        createDismissKeyboardTapGesture()
     }
     
     // when overriding a func make sure to call super so you get all the default
@@ -28,6 +31,33 @@ class SearchViewController: UIViewController {
         // hide navigation view in viewWillAppear because it is always called when going
         // back and forth between screens. Meanwhile, viewDidLoad is only called once.
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    
+    func createDismissKeyboardTapGesture() {
+        // create the tap gesture recognizer
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        
+        // add it to the view (Could also add this to an image or anything)
+        view.addGestureRecognizer(tap)
+    }
+    
+    
+    @objc func pushFollowerListVC() {
+        guard isUsernameEntered else {
+            print("No username entered")
+            return
+        }
+        // create View controller
+        let followerListVC = FollowerListViewController()
+        
+        // pass data to it
+        followerListVC.username = usernameTextField.text
+        followerListVC.title = usernameTextField.text
+        
+        // push the view controller on the stack
+        navigationController?.pushViewController(followerListVC, animated: true)
+        
     }
     
     
@@ -52,6 +82,8 @@ class SearchViewController: UIViewController {
     func configureTextField() {
         // add subview
         view.addSubview(usernameTextField)
+        // set the delegate (what are we listening to?)
+        usernameTextField.delegate = self
         
         // add styling (already in GFTextField file)
         
@@ -68,6 +100,8 @@ class SearchViewController: UIViewController {
     func configureCallToActionButton() {
         // add subview
         view.addSubview(callToActionButton)
+        // add button action when pressed
+        callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
         
         // add styling (already in GFButton file)
         
@@ -78,5 +112,13 @@ class SearchViewController: UIViewController {
             callToActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             callToActionButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+}
+
+// Conform to delegate
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        pushFollowerListVC()
+        return true
     }
 }
