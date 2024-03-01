@@ -15,12 +15,28 @@ class FollowerListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        // we can put it here because this nav will be created and destroyed.
-        // there isnt going back to it only creating for each username entered.
-        navigationController?.isNavigationBarHidden = false
-        
         // to make navigation title large
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        NetworkManager.shared.getFollowers(for: username, page: 1) { followers, errorMessage in
+            guard let followers = followers else {
+                self.presentGFAlertOnMainThread(title: "Bad Stuff Happened", message: errorMessage!, buttonTitle: "Ok")
+                return
+            }
+            
+            print("Followers.count = \(followers.count)")
+            print(followers)
+            
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // we can put it here because this nav will be created and destroyed.
+        // there isnt going back to it only creating for each username entered.
+        navigationController?.setNavigationBarHidden(false, animated: true)
         
     }
     

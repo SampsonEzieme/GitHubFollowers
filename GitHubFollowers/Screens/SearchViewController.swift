@@ -30,7 +30,7 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         // hide navigation view in viewWillAppear because it is always called when going
         // back and forth between screens. Meanwhile, viewDidLoad is only called once.
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     
