@@ -11,6 +11,7 @@ class GFRepoItemVC: GFItemInfoVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureItems()
     }
     
     
