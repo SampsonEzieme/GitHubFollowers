@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct UIHelper {
+enum UIHelper {
     
     static func createThreeColumnFlowLayout(in view: UIView) -> UICollectionViewFlowLayout {
         // Does the view controller need to know about this? No, we can refactor this out to another file.

@@ -31,6 +31,7 @@ class GFItemInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackgroundView()
+        configureActionButton()
         layoutUI()
         configureStackView()
     }
@@ -51,9 +52,16 @@ class GFItemInfoVC: UIViewController {
     }
     
     
+    private func configureActionButton() {
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+    }
+    
+    
+    @objc func actionButtonTapped() {}
+    
+    
     private func layoutUI() {
-        view.addSubview(stackView)
-        view.addSubview(actionButton)
+        view.addSubviews(stackView, actionButton)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         let padding: CGFloat = 20

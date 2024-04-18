@@ -9,16 +9,17 @@ import UIKit
 
 class GFAlertViewController: UIViewController {
     
-    let containerView = UIView()
-    let titleLabel = GFTitleLabel(textAlignment: .center, fontSize: 20)
-    let messageLabel = GFBodyLabel(textAlignment: .center)
-    let actionButton = GFButton(backgroundColor: .systemPink, title: "Ok")
+    let containerView   = GFAlertContainerView()
+    let titleLabel      = GFTitleLabel(textAlignment: .center, fontSize: 20)
+    let messageLabel    = GFBodyLabel(textAlignment: .center)
+    let actionButton    = GFButton(color: .systemPink, title: "Ok", systemImageName: SFSymbols.checkmark!)
     
     var alertTitle: String?
     var messageTitle: String?
     var buttonTitle: String?
     
-    var padding: CGFloat = 20
+    let padding: CGFloat = 20
+    
     
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
@@ -28,13 +29,17 @@ class GFAlertViewController: UIViewController {
         self.buttonTitle = buttonTitle
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        view.addSubviews(containerView)
+        containerView.addSubviews(titleLabel, actionButton, messageLabel)
         
         configureContainerView()
         configureTitleLabel()
@@ -43,15 +48,8 @@ class GFAlertViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
     func configureContainerView() {
-        view.addSubview(containerView)
-        
-        containerView.backgroundColor = .systemBackground
-        containerView.layer.cornerRadius = 16
-        containerView.layer.borderWidth = 2
-        containerView.layer.borderColor = UIColor.white.cgColor
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -61,8 +59,8 @@ class GFAlertViewController: UIViewController {
         ])
     }
     
+    
     func configureTitleLabel() {
-        containerView.addSubview(titleLabel)
         titleLabel.text = alertTitle ?? "Something went wrong"
         
         NSLayoutConstraint.activate([
@@ -73,8 +71,8 @@ class GFAlertViewController: UIViewController {
         ])
     }
     
+    
     func configureActionButton() {
-        containerView.addSubview(actionButton)
         actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
@@ -88,8 +86,6 @@ class GFAlertViewController: UIViewController {
     
     
     func configureMessageLabel() {
-        containerView.addSubview(messageLabel)
-        
         messageLabel.text = messageTitle ?? "Unable to complete request"
         messageLabel.numberOfLines = 4
         

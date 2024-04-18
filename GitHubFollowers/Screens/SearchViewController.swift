@@ -9,15 +9,16 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
-    let logoImageView = UIImageView()
-    let usernameTextField = GFTextField()
-    let callToActionButton = GFButton(backgroundColor: .systemGreen, title: "Get Followers")
+    let logoImageView       = UIImageView()
+    let usernameTextField   = GFTextField()
+    let callToActionButton  = GFButton(color: .systemGreen, title: "Get Followers", systemImageName: SFSymbols.person3!)
     
     var isUsernameEntered: Bool { return !(usernameTextField.text!.isEmpty) }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        view.addSubviews(logoImageView, usernameTextField, callToActionButton)
         configureLogoImageView()
         configureTextField()
         configureCallToActionButton()
@@ -28,6 +29,7 @@ class SearchViewController: UIViewController {
     // functionalities as well.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        usernameTextField.text = ""
         // hide navigation view in viewWillAppear because it is always called when going
         // back and forth between screens. Meanwhile, viewDidLoad is only called once.
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -36,7 +38,7 @@ class SearchViewController: UIViewController {
     
     func createDismissKeyboardTapGesture() {
         // create the tap gesture recognizer
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         
         // add it to the view (Could also add this to an image or anything)
         view.addGestureRecognizer(tap)
@@ -45,15 +47,13 @@ class SearchViewController: UIViewController {
     
     @objc func pushFollowerListVC() {
         guard isUsernameEntered else {
-            presentGFAlertOnMainThread(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😀.", buttonTitle: "Ok")
+            presentGFAlert(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😀.", buttonTitle: "Ok")
             return
         }
-        // create View controller
-        let followerListVC = FollowerListViewController()
         
-        // pass data to it
-        followerListVC.username = usernameTextField.text
-        followerListVC.title = usernameTextField.text
+        usernameTextField.resignFirstResponder()
+        // create View controller
+        let followerListVC = FollowerListViewController(username: usernameTextField.text!)
         
         // push the view controller on the stack
         navigationController?.pushViewController(followerListVC, animated: true)
@@ -63,15 +63,16 @@ class SearchViewController: UIViewController {
     
     func configureLogoImageView() {
         // add as subview
-        view.addSubview(logoImageView)
         
         // add styling
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.image = UIImage(named: "gh-logo")!
+        logoImageView.image = Images.ghLogo
+        
+        let topConstraintConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
         
         // add constraints
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200),
             logoImageView.widthAnchor.constraint(equalToConstant: 200)
@@ -81,7 +82,6 @@ class SearchViewController: UIViewController {
     
     func configureTextField() {
         // add subview
-        view.addSubview(usernameTextField)
         // set the delegate (what are we listening to?)
         usernameTextField.delegate = self
         
@@ -99,7 +99,6 @@ class SearchViewController: UIViewController {
     
     func configureCallToActionButton() {
         // add subview
-        view.addSubview(callToActionButton)
         // add button action when pressed
         callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
         
@@ -121,4 +120,9 @@ extension SearchViewController: UITextFieldDelegate {
         pushFollowerListVC()
         return true
     }
+}
+
+
+#Preview {
+    SearchViewController()
 }
